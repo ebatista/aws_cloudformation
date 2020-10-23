@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Metadata:
+    Generator: "former2"
+Description: ""
+Parameters:
+    Name:
+        Type: "String"
+        Default: "Account"
+
+Resources:
+    IAMRole:
+        Type: "AWS::IAM::Role"
+        Properties:
+            Path: "/"
+            RoleName: "AWSBackupServiceRole"
+            AssumeRolePolicyDocument: "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"backup.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}"
+            MaxSessionDuration: 3600
+            ManagedPolicyArns: 
+              - "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
+              - "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForRestores"
+            Description: "Allows AWS Backup to access AWS resources on your behalf based on the permissions you define."
